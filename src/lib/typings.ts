@@ -1,7 +1,7 @@
 import { Message, PermissionString } from 'discord.js'
 
 interface Command {
-    run: (msg: Message) => Promise<void | any>,
+    run: (msg: Message, cleanContent: string) => Promise<void | any>,
     meta: {
         names: string[],
         description: string,

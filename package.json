@@ -1,25 +1,26 @@
 {
   "name": "discord-bot-core-ts",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "dist/index.js",
   "author": "Wait_What_",
-  "license": "",
-  "private": true,
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/mongodb": "^3.5.33",
+    "@types/node": "^14.6.4"
+  },
   "dependencies": {
-    "@types/node": "^14.6.4",
-    "better-sqlite3": "^7.1.1",
     "bufferutil": "^4.0.1",
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
-    "enmap": "^5.8.0",
     "erlpack": "^0.1.3",
-    "express": "^4.17.1",
-    "log75": "^1.0.2",
+    "log75": "^2.0.1",
+    "mongodb": "^3.6.3",
     "utf-8-validate": "^5.0.2",
     "zlib-sync": "^0.1.7"
   },
   "scripts": {
     "build": "rm -rf dist/* && tsc",
-    "start": "rm -rf dist/* && tsc --declaration --declarationMap --sourceMap && node dist/index"
+    "start": "rm -rf dist/* && tsc && node dist/index"
   }
 }

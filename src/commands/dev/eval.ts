@@ -8,19 +8,25 @@ const context = {
 }
 
 const command: Command = {
-    run: async msg => {
-        eval(`(async () => {\n${msg.content.replace(/^(\S+\s+)?(```\w+\n|\n```$)?/, '')}\n})()`)
-            .then((response: unknown) => {
-                response = inspect(response).slice(0, 1980)
-    
-                if (response != 'undefined') msg.channel.send(`\`\`\`js\n${response}\n\`\`\``)
-                else msg.react('✅').catch(() => msg.channel.send('```js\nundefined\n```'))
+    run: async (msg, content) => {
+        eval(
+            `(async () => {` +
+                `const { client, db, config, logger, Embed, Prefix, Clean } = context;\n` +
+                `${content.replace(/(```\w*\n)|\n```$/g, '')}\n` +
+            `})()`
+        )
+            .then((response: unknown) => {    
+                if (response == undefined)
+                    msg.react('✅')
+                        .catch(() => msg.channel.send('```js\nundefined\n```'))
+                else
+                    msg.channel.send(`\`\`\`js\n${inspect(response).slice(0, 1989)}\n\`\`\``)
         
                 clearTimeout(typing)
                 msg.channel.stopTyping()
             })
             .catch((error: Error) => {
-                msg.channel.send(`\`\`\`js\n${error.name}: ${error.message}\`\`\``)
+                msg.channel.send(`\`\`\`js\n${error?.name ? `${error.name}: ${error.message}`.slice(0, 1991) : `Error: ${error}`}\n\`\`\``)
 
                 clearTimeout(typing)
                 msg.channel.stopTyping()

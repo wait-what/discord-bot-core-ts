@@ -5,25 +5,21 @@ const config = {
     tokens: {
         discord: process.env.BOT_TOKEN_DISCORD as string
     },
+    db: {
+        uri: process.env.BOT_DB_URI as string,
+        name: process.env.BOT_DB_NAME as string
+    },
     defaultPrefix: process.env.BOT_DEFAULT_PREFIX as string,
     botAdmins: (process.env.BOT_ADMIN_IDS as string ?? '').split(','),
     embedColor: parseInt(process.env.BOT_EMBED_COLOR as string, 16),
-    logLevel: parseInt(process.env.BOT_LOG_LEVEL as string, 10)
+    logLevel: parseInt(process.env.BOT_LOG_LEVEL as string, 10),
+    blacklist: { // optional
+        users: process.env.BOT_BLACKLIST_USERS ?? '',
+        guilds: process.env.BOT_BLACKLIST_GUILDS ?? ''
+    }
 }
 
-if (!config.tokens.discord || config.tokens.discord.length != 59)
-    throw 'BOT_TOKEN_DISCORD missing or invalid'
-
-if (!config.defaultPrefix || config.defaultPrefix.length < 1 || config.defaultPrefix.length > 64)
-    throw 'BOT_DEFAULT_PREFIX missing or invalid'
-
-if (config.botAdmins.length < 1 || config.botAdmins.find(id => id.length < 17 || id.length > 19))
-    throw 'BOT_ADMIN_IDS missing or invalid'
-
-if (config.embedColor == undefined || isNaN(config.embedColor) || config.embedColor < 0 || config.embedColor > 0xffffff)
-    throw 'BOT_EMBED_COLOR missing or invalid'
-
-if (config.logLevel == undefined || isNaN(config.logLevel) || config.logLevel < 0 || config.logLevel > 2)
-    throw 'CONFIG_LOG_LEVEL missing or invalid'
+for (const element of [ 'BOT_TOKEN_DISCORD', 'BOT_DB_URI', 'BOT_DB_NAME', 'BOT_DEFAULT_PREFIX', 'BOT_ADMIN_IDS', 'BOT_EMBED_COLOR', 'BOT_LOG_LEVEL' ])
+    if (!process.env[element]) throw `Environment variable ${element} is missing`
 
 export default config

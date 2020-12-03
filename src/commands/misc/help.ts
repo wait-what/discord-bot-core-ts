@@ -1,5 +1,5 @@
 import { Util } from 'discord.js'
-import { Embed, Prefix } from '../../lib/functions'
+import { Embed, Prefix, Clean } from '../../lib/functions'
 import { Command, Restrictions } from '../../lib/typings'
 import Commands from '..'
 
@@ -18,7 +18,7 @@ const load = () => {
             }
 
             buffer.get(categoryName)?.push(
-                `:${item.meta.restrictions & Restrictions.NoDm ? 'black' : 'white'}_small_square: ` +
+                `:small_${item.meta.restrictions & Restrictions.NoDm ? 'orange' : 'blue'}_diamond: ` +
                 `**\`{{prefix}}${item.meta.names[0]}\`** ${item.meta.description}` +
                 (item.meta.usage ? ` \`{{prefix}}${item.meta.names[0]} ${item.meta.usage}\``: '')
             )
@@ -38,18 +38,13 @@ const load = () => {
 const cooldowns = new Set()
 
 const command: Command = {
-    run: async msg => {
+    run: async (msg, content) => {
         if (categories.length < 1) load()
 
-        const prefix = Prefix(msg.guild?.id)
-        const categoryName = msg.content.replace(/^\S+\s*/, '').toLowerCase()
+        const prefix = Clean(await Prefix(msg.guild?.id))
+        const categoryName = content.toLowerCase()
 
-        if (cooldowns.has(msg.author.id)) {
-            msg.channel.send(
-                new Embed(`You are on **cooldown** for **2 minutes** after using \`${prefix}help all\``).warn()
-            )
-            return
-        }
+        if (categoryName == 'all' && cooldowns.has(msg.author.id)) return
 
         if (!categoryName || (categoryName != 'all' && !categoryNames.includes(categoryName))) {
             msg.channel.send(
@@ -64,7 +59,9 @@ const command: Command = {
             return
         }
 
-        const chunks = categories.filter(category => categoryName == 'all' || category[0] == categoryName)
+        const chunks = categories
+            .filter(category => categoryName === 'all' || category[0] === categoryName)
+            
         await Promise.all(
             chunks.map(chunk =>
                 msg.channel.send(
@@ -74,9 +71,9 @@ const command: Command = {
             )
         )
 
-        if (categoryName == 'all') {
+        if (categoryName === 'all') {
             cooldowns.add(msg.author.id)
-            setTimeout(() => cooldowns.delete(msg.author.id), 2 * 60 * 1000)
+            setTimeout(() => cooldowns.delete(msg.author.id), 15 * 1000)
         }
     },
     meta: {

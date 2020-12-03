@@ -10,7 +10,7 @@ An easy to use modular TypeScript Discord bot meant to be a blank canvas for any
 - Cross-platform support
 - Automatic help command (command list)
 - Some example commands
-- Database
+- Database - MongoDB
 - Some functions to make your life easier (refer to example commands)
 
 ## Credit
@@ -21,18 +21,19 @@ Please include this somewhere in your `README.md`
 [![DISCORDBOTCORETS](https://flat.badgen.net/badge/Made%20using/discord-bot-core-ts/blue)](https://gitlab.com/Wait_What_/discord-bot-core-ts)
 
 ```md
-[![DISCORDBOTCORETS](https://flat.badgen.net/badge/Made%20using/discord-bot-core-ts/blue)](https://gitlab.com/Wait_What_/discord-bot-core-ts)3
+[![DISCORDBOTCORETS](https://flat.badgen.net/badge/Made%20using/discord-bot-core-ts/blue)](https://gitlab.com/Wait_What_/discord-bot-core-ts)
 ```
 
 ## Installation guide
 ### Install the following programs
-- NodeJS (at least v10)
-- Git
-- Yarn
+- node (latest version preferred)
+- git
+- yarn
+- tsc
   
 ### Install build tools
 #### Windows
-- Run powershell or cmd as administrator
+- Run PowerShell or Command Prompt **as administrator**
 - `npm install --g windows-build-tools`
 - This is going to take a while. A long while.
 
@@ -44,14 +45,14 @@ Please include this somewhere in your `README.md`
 ### Clone the repository and install dependencies
 ```sh
 # cd Desktop or whatever
-git clone https://gitlab.com/Wait_What_/discord-bot-core-ts
-cd ./discord-bot-core-ts
+git clone https://gitlab.com/Wait_What_/discord-bot-core-ts my-bot
+cd my-bot
 yarn
 ```
 
 ### Configure the bot
 - Rename `template.env` to `.env`
-- Set appropriate values
+- Configure values
 
 ### Run the bot
 > `yarn start`
@@ -74,17 +75,15 @@ pm2 stop bot
 ```
 
 ## Adding commands and modules
-Add commands by creating additional files in `/commands` or `/modules`. Use existing commands as examples. Be sure to import them in `/commands/index.ts` or `/modules/index.ts`
+Add commands by creating additional files in `/commands` or `/modules`. Use existing commands as examples.
 
-## Database defaults
-The database needs to have a deafault object for guilds and users.
+> Be sure to import them in `/commands/index.ts` or `/modules/index.ts`
 
-This makes sure that the user exists in the database and has all the properties specified in `/lib/init/database.ts`
-```js
-db.user.verify(uid)
-```
+## Database usage
+You may want to use `db.verify.user(id)` or `db.verify.guild(id)` before reading/writing to the database. This ensures that
+the default document (specified in `/lib/init/database`) already exists to prevent further errors. 
 
-Check out [Enmap documentation](https://enmap.evie.dev/api) for more info.
+> Note that guilds are automatically verified each time a message is sent because of prefix checking
 
 ## Command usage restrictions
 `lib/typings/Restrictions` is an enum. Your commands can have multiple restrictions by simply adding the two together.

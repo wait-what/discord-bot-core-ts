@@ -3,8 +3,8 @@ import { Embed } from '../../lib/functions'
 import { Command, Restrictions } from '../../lib/typings'
 
 const command: Command = {
-    run: async msg => {
-        if (!(/\S+\s+\S*s\S*/i).test(msg.content))
+    run: async (msg, content) => {
+        if (!content.match(/-*s/i))
             await msg.channel.send(
                 new Embed('Stopping the bot')
             )

@@ -1,2 +1,2 @@
-import './commandHandler'
-import './loginHandler'
+import './core/commandHandler'
+import './core/loginHandler'
