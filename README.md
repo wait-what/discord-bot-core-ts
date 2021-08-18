@@ -1,5 +1,5 @@
 # Discord bot core TS
-[![MIT](https://flat.badgen.net/badge/License/MIT/blue)](https://gitlab.com/Wait_What_/discord-bot-core-ts/blob/master/LICENSE.md)
+[![MIT](https://flat.badgen.net/badge/License/MIT/blue)](https://github.com/wait-what/discord-bot-core-ts/blob/master/LICENSE.md)
 [![SUPPORTSERVER](https://flat.badgen.net/badge/Support%20server/Join/purple)](https://discord.gg/N8Fqcuk)
 [![NODE](https://flat.badgen.net/badge/Language/Node.js/green?icon=node)](https://nodejs.org/en/)
 
@@ -18,10 +18,10 @@ If you use this to make a bot, I would really love it if you made it open source
 
 Please include this somewhere in your `README.md`
 
-[![DISCORDBOTCORETS](https://flat.badgen.net/badge/Made%20using/discord-bot-core-ts/blue)](https://gitlab.com/Wait_What_/discord-bot-core-ts)
+[![DISCORDBOTCORETS](https://flat.badgen.net/badge/Made%20using/discord-bot-core-ts/blue)](https://github.com/wait-what/discord-bot-core-ts)
 
 ```md
-[![DISCORDBOTCORETS](https://flat.badgen.net/badge/Made%20using/discord-bot-core-ts/blue)](https://gitlab.com/Wait_What_/discord-bot-core-ts)
+[![DISCORDBOTCORETS](https://flat.badgen.net/badge/Made%20using/discord-bot-core-ts/blue)](https://github.com/wait-what/discord-bot-core-ts)
 ```
 
 ## Installation guide
@@ -45,7 +45,7 @@ Please include this somewhere in your `README.md`
 ### Clone the repository and install dependencies
 ```sh
 # cd Desktop or whatever
-git clone https://gitlab.com/Wait_What_/discord-bot-core-ts my-bot
+git clone https://github.com/wait-what/discord-bot-core-ts my-bot
 cd my-bot
 yarn
 ```
